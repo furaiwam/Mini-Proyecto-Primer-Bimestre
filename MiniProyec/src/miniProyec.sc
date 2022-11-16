@@ -21,13 +21,23 @@ val i5 = integracion(0, 1, k)
 val i6 = integracion(2, 3, l)
 val i7 = integracion(0, 1, m)
 
-def integral(a: Int, b: Int, n: Int, f: Double => Double): Double = {
+print("Simpson 1/3 compuesta ")
+
+def integralCom(a: Int, b: Int, n: Int, f: Double => Double): Double = {
   val h = ((b - a) / n)
   val xj = (j: Double) => a + (j * h)
   val funcion = (j: Double) => f(xj(2 * j - 2)) + 4 * f(xj(2 * j - 1)) + f(xj(2 * j))
   (1 to 2).map(funcion(_))(h / 3)
-
 }
 
-integral(3, 5, f)
-integral(0, 2, 2, h)
+print("Simpson 1/3 extendida.")
+
+def integralExt( a:Double, b:Double, f:Double=>Double) : Double = {
+  val n = (2 * (b - a))
+  val h = (b-a)/n
+  val i = (1 to n-1 by 2)
+  val j = (2 to n-2 by 2)
+  val sumI = i.map(x => f(a + x * h))
+  val sumJ = j.map(x => f(a + x * h))
+  (h/3) * (  f(a) +  (4 * sumI) + (2 * sumJ) +  f(b)  )
+}
